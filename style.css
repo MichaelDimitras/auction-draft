@@ -1,0 +1,54 @@
+.team-container {
+    border: 1px solid black;
+    display: inline-block;
+}
+
+li {
+    list-style:none;
+    height: 2.5vh ;
+}
+
+ul {
+    padding: 0;
+}
+
+.row {
+    display: grid;
+    margin-bottom: 4vh;
+    grid-gap: 1vw;
+    grid-template-columns: repeat(7, 13vw);
+}
+
+* {
+    font-family: 'helvetica', sans-serif;
+    text-align: center;
+    background-color: rgba(240, 248, 255, 0);
+}
+
+h3 {
+    display: inline-block;
+}
+
+.QB {
+    background-color: coral;
+}
+
+.RB {
+    background-color: #b6e89b;
+}
+
+.WR {
+    background-color: #509aff;
+}
+
+.TE {
+    background-color: #fff850;
+}
+
+.DEF {
+    background-color: #9d529d;
+}
+
+.K {
+    background-color: #caebe1;
+}
