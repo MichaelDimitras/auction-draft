@@ -5,23 +5,21 @@
         <script type="text/javascript" src="prompt.js"></script>
     </head>
     <body>
-        <h1>Lobbyst League</h1>
+        <h1>League Name</h1>
         <div class="teams"></div>
         <script type="text/javascript">
             let teamTemplate = '';
             let listTemplate = '';
             for (let i = 0; i < 14; i++) {
-                listTemplate += `
-                            <li></li>
-                                `   
+                listTemplate += `<li></li>`   
             }
             for (let i = 1; i <= 7; i++) {
                 teamTemplate += `
                             <div class="team-container" grid-column-start="${i}" grid-column-end="${i}" col="${i}">
-                                <h3>Team ${i}</h3>
+                                <h3 class='team-name'>Team ${i}</h3>
                                 <h3>$</h3>
                                 <h3>200</h3>
-                                <ul>
+                                <ul class="roster">
                                     ${listTemplate}
                                 </ul>
                             </div>
@@ -39,16 +37,17 @@
             document.getElementsByClassName('teams')[0].innerHTML = rowTemplate;
         </script>
         <script type="text/javascript">
-            let teams = document.getElementsByClassName('team-container');
+            let rosters = document.getElementsByClassName('roster');
+            let teamNames = document.getElementsByClassName('team-name');
+            let players = document.getElementsByTagName('li');
             let lastClicked;
 
             window.addEventListener('message', (e) => {
                 let curr = 0;
                 let roster = lastClicked.children[3].children;
-
                 while (curr < roster.length) {
                     if (roster[curr].innerHTML === '') {
-                        roster[curr].innerHTML = e.data.name;
+                        roster[curr].innerHTML = `${e.data.position} ${e.data.name} ${e.data.bid}`;
                         roster[curr].className += e.data.position;
                         lastClicked.children[2].innerHTML = 
                             (parseInt(lastClicked.children[2].innerHTML) - e.data.bid).toString();
@@ -58,14 +57,40 @@
                 }
             });
             
-            const handler = (e) => {
-               lastClicked = e.currentTarget;
+            const rosterClickHandler = (e) => {
+               lastClicked = e.currentTarget.parentElement;
                let ref = window.open('./prompt.html')
             }
-            
-            for (let i = 0; i < teams.length; i++) {
-                teams[i].addEventListener('click', handler);
+
+            const nameClickHandler = (e) => {
+                let newName = prompt('Enter a new team name');
+                e.currentTarget.innerHTML = newName;
             }
+
+            const playerClickHandler = (e) => {
+                e.preventDefault();
+                let remove = confirm(`Do you want to remove ${e.currentTarget.innerHTML}?`);
+                if (remove) {
+                    e.currentTarget.className = '';
+                    e.currentTarget.parentElement.parentElement.children[2].innerHTML = 
+                    (parseInt(e.currentTarget.parentElement.parentElement.children[2].innerHTML) + 
+                    parseInt(e.currentTarget.innerHTML.match(/\d+$/)[0])).toString();
+                    e.currentTarget.innerHTML = '';
+                }
+            }
+            
+            for (let i = 0; i < rosters.length; i++) {
+                rosters[i].addEventListener('click', rosterClickHandler);
+            }
+
+            for (let i = 0; i < teamNames.length; i++) {
+                teamNames[i].addEventListener('click', nameClickHandler);
+            }
+
+            for (let i = 0; i < players.length; i++) {
+                players[i].addEventListener('contextmenu', playerClickHandler);
+            }
+
         </script>
     </body>
 </html>

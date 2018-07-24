@@ -1,15 +1,26 @@
+
+* {
+    font-family: "Lucida Sans Unicode", sans-serif;
+    text-align: center;
+    /*overflow: hidden;*/
+    background-color: rgba(240, 248, 255, 0);
+    margin: 0;
+    padding: 0;
+}
+
+.teams {
+    margin-left: 1vw;
+}
+
 .team-container {
     border: 1px solid black;
     display: inline-block;
 }
 
-li {
-    list-style:none;
-    height: 2.5vh ;
-}
-
-ul {
-    padding: 0;
+.team-name {
+    display: block;
+    min-height: 3vh;
+    margin: .5vh 0 .5vh 0;
 }
 
 .row {
@@ -19,14 +30,20 @@ ul {
     grid-template-columns: repeat(7, 13vw);
 }
 
-* {
-    font-family: 'helvetica', sans-serif;
-    text-align: center;
-    background-color: rgba(240, 248, 255, 0);
+h1 {
+    font-family: "Arial Black", sans-serif;
+    font-size: 300%;
 }
 
 h3 {
     display: inline-block;
+    font-family: Georgia, serif;
+}
+
+li {
+    list-style:none;
+    height: 2.5vh ;
+    text-align: left;
 }
 
 .QB {
